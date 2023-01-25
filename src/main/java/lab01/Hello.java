@@ -13,10 +13,20 @@
 * * *****************************************/
 
 package lab01;
+import java.util.Scanner;
 public class Hello
 {
     public static void main(String[] args){
-        System.out.println("Programming is not a spectator sport!");
+        Scanner scnr = new Scanner(System.in);
+        System.out.println("What's your name?");
+        String username = scnr.next();
+        System.out.println("Here is your operating system info, " + username);
+        System.out.println("OS Name: " + System.getProperty("os.name"));
+        System.out.println("OS Architecture: " + System.getProperty("os.arch"));
+        System.out.println("OS Version: " + System.getProperty("os.version"));
+
+        System.out.println(String.format("%s your name is %d characters long.", username, username.length()));
+
         System.exit(0);
     }
 }
