@@ -1,3 +1,27 @@
+# CSCI 205 - Software Engineering and Design
+
+Bucknell University
+Lewisburg, PA, USA
+
+## Project: csci205_labs
+
+## Course Information
+Instructor: Brian King
+Semester: Spring 23
+Section: 01 - 9am
+
+## Student Info
+Name: Linh Nguyen
+Major: Computer Science 
+
+## Repository Info
+CSCI 205 Lab work
+
+## About me
+I'm Linh Nguyen and I'm from Hanoi, Vietnam
+
+
+
 # csci205_labs
 
 
