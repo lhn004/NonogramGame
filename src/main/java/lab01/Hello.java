@@ -27,6 +27,23 @@ public class Hello
 
         System.out.println(String.format("%s your name is %d characters long.", username, username.length()));
 
+        System.out.println("What is your age? ");
+        int age = scnr.nextInt();
+        if (age < 20)
+        {
+            System.out.println("You are a teenage");
+        }
+        else if (age < 30)
+        {
+            System.out.println("You're in your 20s");
+        }
+        else
+        {
+            System.out.println("You're at least 30.");
+        }
+
+
+
         System.exit(0);
     }
 }
