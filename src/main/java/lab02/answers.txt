@@ -1,0 +1,28 @@
+/* *****************************************
+*CSCI205 -Software Engineering and Design
+* Spring2023
+* Instructor: Brian King
+* Section: 9am
+*
+* Name: Linh Nguyen
+* Date: 01/27/2023
+*
+*Lab / Assignment: Lab02
+*
+*Description:
+* * *****************************************/
+
+(1.1)
+Primitive:
+Answer = 49999995000000 Time = 8093434 ns
+
+Wrapped:
+Answer = 49999995000000 Time = 97892063 ns
+Primitive types used 91.7 % of the time of wrapper objects.
+
+(1.2) Primitive type is faster than wrapped type because the the actual value of an object variable is 
+a reference to the object in the memory while the value of the primitive type is the value itself. Thus, when 
+doing any operations, it takes more time for the wrapped type to retrieve the value from the memory than primitive type.
+
+
+
