@@ -14,6 +14,7 @@
 
 package lab02;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Die {
     /** The minimum face value for our die */
@@ -59,17 +60,47 @@ public class Die {
         return ""+ this.valueOfLastRoll;
     }
 
-
     /**
      * A simple main program to test out a Die object
      * @param args - program arguments (not used)
      */
     public static void main(String[] args){
-        Die die = new Die();
+        // Initiate 2 Die objects 
+        Die die1 = new Die();
+        Die die2 = new Die();
 
-        // Roll the die and print it to the display
-        die.roll();
-        System.out.println("I rolled: " + die);
+        // Greet the user with a prompt, asking them for the sum of the dice to check for
+        Scanner in = new Scanner(System.in);
+        System.out.println("Welcome to the dice simulator!");
+        System.out.println("I'm going to roll 2 dice 1000000 times");
+        System.out.println("What dice sum do you want to check for? ");
+        int sum = in.nextInt();
+
+        // If the value they enter is outside of the range 2 –12, then show an error and ask the user for the sum to check again.
+        while (sum < 2 || sum > 12)
+        {
+            System.out.println("ERROR! Invalid value entered! 2-12 only. Try again.");
+            System.out.println("What dice sum do you want to check for? ");
+            sum = in.nextInt();
+        }
+
+        // Roll the die, start the simulation, and compute the actual time
+        int count = 0;
+        long start_time = System.nanoTime();
+        for (int i = 0; i<1000000; i++)
+        {
+            die1.roll();
+            die2.roll();
+            if (die1.getValueOfLastRoll() + die2.getValueOfLastRoll() == sum)
+            { count ++; }
+        }
+        double duration = (double)(System.nanoTime() - start_time)/1000000;
+
+        double pct = ((double)count/1000000)*100;
+
+        // Report result
+        System.out.printf("The roll value %d appeared %d times, or %.3f %% of all rolls.\n", sum, count, pct);
+        System.out.printf("1000000 rolls took %.3f ms.\n", duration);
         System.out.println("Goodbye"); 
     } 
 
