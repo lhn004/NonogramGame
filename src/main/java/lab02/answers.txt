@@ -26,3 +26,45 @@ doing any operations, it takes more time for the wrapped type to retrieve the va
 
 
 
+(4.1)
+
+Fibonacci number to compute:
+20
+Recursive fib: 6765 Time 0.8361 ms. 
+Non-recursive fib: 6765 Time 0.0069 ms. 
+Non-recursive fib with BigInteger: 6765 Time 0.5966 ms.
+
+
+Fibonacci number to compute:
+30
+Recursive fib: 832040 Time 6.6222 ms. 
+Non-recursive fib: 832040 Time 0.0106 ms. 
+Non-recursive fib with BigInteger: 832040 Time 0.5447 ms. 
+
+
+Fibonacci number to compute:
+40
+Recursive fib: 102334155 Time 344.9935 ms. 
+Non-recursive fib: 102334155 Time 0.0185 ms. 
+Non-recursive fib with BigInteger: 102334155 Time 0.3770 ms. 
+
+
+Fibonacci number to compute:
+100
+Recursive fib: COULD NOT COMPUTE
+Non-recursive fib: -980107325 Time 0.0153 ms. 
+Non-recursive fib with BigInteger: 354224848179261915075 Time 1.0200 ms. 
+
+
+(4.2)
+The recursive version is so much more computationally expensive than the non-recursive version because it does so many 
+redundant computations. For example, if we want to recFib(5), then we need to calculate recFib(4) and recFib(3). Then, 
+when we call recFib(4), it will compute recFib(3) and recFib(2) and so on. The value of recFib(3) is not stored so that
+it has to do the whole calculation again. Thus, the evolved process will look like a tree with 2 child nodes and the time 
+complexity is O(n^2) while using the non-recursive version, the time complexity is O(n) as we only loop through it once.
+
+
+
+
+
+
