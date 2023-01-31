@@ -73,17 +73,25 @@ public class Die {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to the dice simulator!");
         System.out.println("I'm going to roll 2 dice 1000000 times");
-        System.out.println("What dice sum do you want to check for? ");
-        int sum = in.nextInt();
+        int sum = -1;
+        
 
         // If the value they enter is outside of the range 2 –12, then show an error and ask the user for the sum to check again.
-        while (sum < 2 || sum > 12)
-        {
-            System.out.println("ERROR! Invalid value entered! 2-12 only. Try again.");
-            System.out.println("What dice sum do you want to check for? ");
-            sum = in.nextInt();
+        while (sum < 2 || sum > 12) {
+            System.out.print("What dice sum do you want to check for? ");
+            if (!in.hasNextInt()) {
+                System.out.print("Please enter a number. ");
+                
+            }
+            else {
+                sum = in.nextInt();
+                if (sum <2 || sum > 12) {
+                    System.out.println("ERROR! Invalid value entered! 2-12 only. Try again.");
+                }
+            }
+            in.nextLine();
         }
-
+        
         // Roll the die, start the simulation, and compute the actual time
         int count = 0;
         long start_time = System.nanoTime();
