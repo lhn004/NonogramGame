@@ -28,6 +28,7 @@ public class HelloIntelliJ {
     private static String sLast;
     private static String sFullName;
 
+
     /**
      * Our main program
      * @param args - command line arguments (not used)
