@@ -18,9 +18,9 @@ package lab04;
 import java.util.Scanner;
 
 /**
- * A simple program to help us become familiar with IntellJ
+ * A simple program to ask the user for their names and do some basic analysis with it
  *
- * @author Linh Nguyen
+ * @param args - command line arguments (not used)
  */
 public class HelloIntelliJ {
 
