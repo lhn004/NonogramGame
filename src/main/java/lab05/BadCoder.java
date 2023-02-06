@@ -20,6 +20,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BadCoder {
+
+    public static final int NUM_INTS = 10;
+
     public static void main(String[] args) {
         // Greet the user and ask for their name
         Scanner scnr = new Scanner(System.in);
@@ -28,9 +31,10 @@ public class BadCoder {
 
         // Let's fill up an array with random integers
         Random rand = new Random();
-        int[] x = new int[10];
-        for (int i = 0;  i < 10; i++) {
-            x[i] = rand.nextInt(100);
+        int[] x = new int[NUM_INTS];
+        for (int i = 0; i < NUM_INTS; i++) {
+            x[i] = rand.nextInt(
+                    100);
         }
         System.out.println(name + ", our array is: " + Arrays.toString(x));
     }
