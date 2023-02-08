@@ -25,10 +25,14 @@ import java.util.Arrays;
  * A class that analyzes strings.
  */
 public class StringAnalyzer {
-    /** Let's store all strings we're analyzing */
+    /**
+     * Let's store all strings we're analyzing
+     */
     private ArrayList<String> listOfStrings;
 
-    /** Most recent string added */
+    /**
+     * Most recent string added
+     */
     private String currentString;
 
     /**
@@ -39,11 +43,19 @@ public class StringAnalyzer {
         this.currentString = null;
     }
 
-    /** Getter method to return the internal list of strings checked so far */
-    public ArrayList<String> getListOfStrings() { return listOfStrings; }
+    /**
+     * Getter method to return the internal list of strings checked so far
+     */
+    public ArrayList<String> getListOfStrings() {
+        return listOfStrings;
+    }
 
-    /** Getter method to return the current string being analyzedd */
-    public String getCurrentString() { return currentString; }
+    /**
+     * Getter method to return the current string being analyzedd
+     */
+    public String getCurrentString() {
+        return currentString;
+    }
 
     /**
      * Set the string to analyze only if it hasn't been analyzed before.
@@ -55,8 +67,9 @@ public class StringAnalyzer {
         // Check to see if this string is in our list of strings
         for (int i = 0; i < listOfStrings.size(); i++) {
             // If this string is already in our list, immediately return false. There's no point in continuing
-            if (listOfStrings.get(i) == str);
+            if (listOfStrings.get(i).equals(str)) {
                 return false;
+            }
         }
 
         this.currentString = str;
@@ -72,12 +85,12 @@ public class StringAnalyzer {
      * @return the first repeated character or 0 if none found.
      */
     public char firstRepeatChar() {
-        for (int i = 0; i < currentString.length(); i++) {
+        for (int i = 0; i < currentString.length()-1; i++) {
             char ch = currentString.charAt(i);
             if (ch == currentString.charAt(i + 1))
                 return ch;
         }
-        return 0;
+        return ' ';
     }
 
     /**
@@ -92,7 +105,7 @@ public class StringAnalyzer {
             char ch1 = currentString.charAt(i);
 
             // Check to see if this has a second occurrence
-            for (int j = i+1; j <= currentString.length(); j++) {
+            for (int j = i + 1; j < currentString.length(); j++) {
                 char ch2 = currentString.charAt(j);
                 if (ch1 == ch2)
                     // We have a second occurrence! Return it!
@@ -110,7 +123,7 @@ public class StringAnalyzer {
      * an empty array is returned
      *
      * @return a char array of all multiply-occurring characters found in the current word, if any.
-     *         If none found, return an empty char array
+     * If none found, return an empty char array
      */
     public Character[] allMultipleChars() {
         // Allocate our array to store our individual characters. Let's just make it the length
@@ -118,12 +131,44 @@ public class StringAnalyzer {
         Character[] arrayOfMultChars = new Character[this.currentString.length()];
         int numFoundSoFar = 0;
 
-        // TODO - Finish this method. Store result in arrayOfMultChars
+//        // TODO - Finish this method. Store result in arrayOfMultChars
+        for (int i = 0; i < this.currentString.length(); i++) {
+            char chr = this.currentString.charAt(i);
+            // Boolean variable to check if the repeated character is already in the array
+            boolean inArray = false;
 
+            for (int j = i + 1; j < this.currentString.length(); j++) {
+                if (chr == this.currentString.charAt(j)) {
+                    // If the array is not empty, check if the character already exists in the array
+                    // If not, set the inArray boolean variable to true and add the character to the array
+                    if (numFoundSoFar!=0) {
+                        for (int k = 0; k < numFoundSoFar; k++) {
+                            if (chr == arrayOfMultChars[k]) {
+                                inArray = true;
+                                break;
+                            }
+                        }
+                        if (!inArray) {
+                            arrayOfMultChars[numFoundSoFar] = chr;
+                            numFoundSoFar++;
+                            break;
+                        }
+                    }
+                    // If the array is empty, add the repeated character to the array
+                    else {
+                        arrayOfMultChars[numFoundSoFar] = chr;
+                        numFoundSoFar++;
+                    }
+                }
+            }
 
+        }
         // That's it! Let's copy this to an array of the correct size
-        arrayOfMultChars = Arrays.copyOfRange(arrayOfMultChars,0,numFoundSoFar);
+        arrayOfMultChars = Arrays.copyOfRange(arrayOfMultChars, 0, numFoundSoFar);
         return arrayOfMultChars;
-    }
 
+    }
 }
+
+
+
