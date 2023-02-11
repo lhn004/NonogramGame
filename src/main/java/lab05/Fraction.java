@@ -17,6 +17,7 @@
 
 package lab05;
 
+
 /**
  * This class encapsulates a single fraction in the form of
  * x/y, where x and y are restricted to integers
@@ -41,10 +42,14 @@ class Fraction {
      * @param denominator an {@code int} denominator of the fraction
      */
     public Fraction(int numerator, int denominator) {
-        this.numerator = 0;
-        this.denominator = 0;
-        this.isValid = false;
-        //TODO - FINISH ME!
+        this.numerator = numerator;
+        this.denominator = denominator;
+        if(denominator == 0) {
+            this.isValid = false;
+        }
+        else {
+            this.isValid = true;
+        }
     }
 
     /**
@@ -59,12 +64,56 @@ class Fraction {
      *                    defaults to 1/1 and a  message idisplayed
      */
     public Fraction(String strFraction) {
-        this.numerator = 0;
-        this.denominator = 0;
-        this.isValid = false;
+        // Temporary variables to store numerator, denominator and isValid value
+        boolean temp_isValid = true;
+        String temp_num = "";
+        String temp_denom = "";
 
-        //TODO - FINISH ME!
+        // Clean whitespaces in string
+        String cleaned_strFraction = strFraction.replaceAll("\\s", "");
+
+        // A valid fraction will have at least 3 characters
+        if (cleaned_strFraction.length() <3) {
+            temp_isValid = false;
+        }
+
+        int i = 0; //Starting index = 0
+
+        // Separate numerator and denominator
+        while (temp_isValid) {
+            // Check if the character in the string is digit.
+            // The only case it's not a digit is when the character is '/
+            if ((!Character.isDigit(cleaned_strFraction.charAt(i))) && (cleaned_strFraction.charAt(i) != '/')) {
+                temp_isValid = false;
+            } else if (cleaned_strFraction.charAt(i) == '/') {
+                break;
+            } else {
+                temp_num += cleaned_strFraction.charAt(i);
+                i++;
+            }
+        }
+
+        // If the fraction does not contain '/', then i equals to the string length
+        if (i == cleaned_strFraction.length()-1) {
+            temp_isValid = false;
+        }
+        else {
+            temp_denom = cleaned_strFraction.substring(i + 1);
+        }
+
+
+        // Set instance variables
+        if (temp_isValid) {
+            this.numerator = Integer.valueOf(temp_num);
+            this.denominator = Integer.valueOf(temp_denom);
+        } else {
+            System.out.println("Incorrect format for fraction: " + strFraction);
+            this.numerator = 1;
+            this.denominator = 1;
+        }
+        this.isValid = temp_isValid;
     }
+
 
     /** @return the numerator in the fraction */
     public int getNumerator() { return numerator; }
@@ -83,15 +132,28 @@ class Fraction {
      */
     public Fraction getSimplifiedFraction() {
         //TODO - FINISH ME!
-        return new Fraction(0,0);
+        int gcd = getGcd(this.numerator, this.denominator);
+        int num = this.numerator / gcd;
+        int denom = this.denominator / gcd;
+        return new Fraction(num,denom);
+    }
+
+    /**
+     * Find greatest common divisor of numerator and denominator using Euclid algorithms
+     * @return greatest common divisor
+     */
+    private int getGcd(int n1, int n2) {
+        if (n2 == 0){
+            return n1;
+        }
+        return getGcd(n2, n1%n2);
     }
 
     /**
      * @return a new Fraction representing the reciprocal of this fraction
      */
     public Fraction reciprocal() {
-        //TODO - FINISH ME!
-        return new Fraction(0,0);
+        return new Fraction(this.denominator,this.numerator);
     }
 
     /**
@@ -99,16 +161,15 @@ class Fraction {
      * (multiply the numerator or denominator by -1)
      */
     public Fraction negate() {
-        //TODO - FINISH ME!
-        return new Fraction(0,0);
+        return new Fraction(-1*this.numerator,this.denominator);
     }
 
     /**
      * @return this fraction as a single floating point number (e.g. 1/2 ==> 0.5)
      */
     public double getDecimal() {
-        //TODO - FINISH ME!
-        return Double.MAX_VALUE;
+        double decimal = (double) this.numerator / this.denominator;
+        return decimal;
     }
 
     /**
@@ -121,7 +182,10 @@ class Fraction {
      */
     public Fraction add(Fraction otherFrac) {
         //TODO - FINISH ME!
-        return new Fraction(0,0);
+        int num = this.numerator * otherFrac.denominator + this.denominator * otherFrac.numerator;
+        int denom = this.denominator * otherFrac.denominator;
+
+        return new Fraction(num, denom) ;
     }
 
     /**
@@ -129,8 +193,10 @@ class Fraction {
      * as a new Fraction, simplified
      */
     public Fraction multiply(Fraction otherFrac) {
-        //TODO - FINISH ME!
-        return new Fraction(0,0);
+        int num = this.numerator * otherFrac.numerator;
+        int denom = this.denominator * otherFrac.denominator;
+        Fraction new_fraction = new Fraction(num,denom);
+        return new_fraction.getSimplifiedFraction();
     }
 
     /**
@@ -143,8 +209,7 @@ class Fraction {
      * numerator and denominator, in simplified form
      */
     public Fraction multiply(int numerator, int denominator) {
-        //TODO - FINISH ME!
-        return new Fraction(0,0);
+        return new Fraction(this.numerator * numerator,this.denominator*denominator);
     }
 
     /**
@@ -154,8 +219,12 @@ class Fraction {
      * @return true if this fraction is greater than {@code otherFrac}
      */
     public boolean isGreaterThan(Fraction otherFrac) {
-        //TODO - FINISH ME!
-        return false;
+        if (this.denominator == otherFrac.getDenominator()) {
+            return (this.numerator > otherFrac.getNumerator());
+        }
+        else {
+            return (this.numerator * otherFrac.getDenominator() > otherFrac.getNumerator()*this.denominator);
+            }
     }
 
     /**
@@ -167,8 +236,8 @@ class Fraction {
      * false otherwise.
      */
     public boolean isEqualTo(Fraction otherFrac) {
-        //TODO - FINISH ME!
-        return false;
+        Fraction simplified = otherFrac.getSimplifiedFraction();
+        return (simplified.getNumerator() == this.numerator & simplified.getDenominator() == this.denominator);
     }
 
     /**
@@ -182,7 +251,15 @@ class Fraction {
      */
     @Override
     public String toString() {
-        // TODO - FINISH ME!
-        return "?/?";
+        if (this.numerator == 0) {
+            return "0";
+        }
+        if (this.denominator == 0) {
+            return "ERROR - divide by 0";
+        }
+        else {
+            String fractionstr = Integer.toString(this.numerator) + "/" + Integer.toString(this.denominator);
+            return fractionstr;
+        }
     }
 }
