@@ -20,6 +20,8 @@ package lab07;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+
 /**
  * A custom of {@link java.lang.Exception} used if the {@link lab07.SimpleCashRegister} tried to
  * give change before enough money is collected from the customer
@@ -131,6 +133,15 @@ public class SimpleCashRegister {
         }
         paymentCollected += unitCount * moneyType.getValue();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SimpleCashRegister register)) return false;
+        return Double.compare(register.totalTransaction, totalTransaction) == 0 && Double.compare(register.paymentCollected, paymentCollected) == 0 && listOfItemPrices.equals(register.listOfItemPrices);
+    }
+
+
 
     /**
      * Computes the change due and resets the machine for the next customer,

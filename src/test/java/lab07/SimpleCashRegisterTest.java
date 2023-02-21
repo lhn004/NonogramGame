@@ -138,6 +138,46 @@ class SimpleCashRegisterTest {
         register.collectPayment(Money.NICKEL, 2);
         assertDoesNotThrow(() -> register.giveChange());
 
+    }
+
+    @Test
+    @DisplayName("giveChange() - a test for giveChange()")
+    void giveChange() throws ChangeException {
+        register.scanItem(0.5);
+        register.scanItem(1.25);
+        register.collectPayment(Money.DOLLAR, 1);
+        register.collectPayment(Money.QUARTER, 1);
+        register.collectPayment(Money.NICKEL, 10);
+        //Check for fully paid transaction
+        assertEquals(0, register.giveChange());
+
+        //Check when customer overpays
+        register.collectPayment(Money.NICKEL, 10);
+        assertEquals(0.5, register.giveChange());
+
+
+
+    }
+
+    @Test
+    @DisplayName("testEquals() - a test to compare two registers")
+    void testEquals() {
+        SimpleCashRegister register1 = new SimpleCashRegister();
+
+        // Two new registers should be equal
+        assertEquals(register, register1);
+
+        // Scan two new items and collect payment for one register
+        register.scanItem(0.55);
+        register.scanItem(1.27);
+        register.collectPayment(Money.FIVE,2);
+        assertNotEquals(register, register1);
+
+        // Scan two new items and collect payment for the other register
+        register1.scanItem(0.55);
+        register1.scanItem(1.27);
+        register1.collectPayment(Money.FIVE,2);
+        assertEquals(register, register1);
 
     }
 }
