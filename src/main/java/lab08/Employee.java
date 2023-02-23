@@ -15,6 +15,7 @@
 package lab08;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 /**
  * A basic representation for an Employee to be stored in an HR database system
@@ -41,6 +42,9 @@ public class Employee {
     /** Current salary of the employee */
     private double salary;
 
+    /** Collection of unique employee IDs generated or assigned */
+    private static HashSet<Integer> setOfAssignedIds = new HashSet<>();
+
     /**
      * Explicit constructor to create new employee
      *
@@ -52,12 +56,26 @@ public class Employee {
      * @param salary    Current employee salary
      */
     public Employee(int empID, String firstName, String lastName, int ssNum, LocalDate hireDate, double salary) {
-        this.empID = empID;
+        this.empID = assignedID(empID);
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssNum = ssNum;
         this.hireDate = hireDate;
         this.salary = salary;
+    }
+
+    /**
+     * check if the supplied empID is in setOfAssignedIDs.
+     * If it is, OR if the id specified is <= 0, then call generateID() to generate the next available good ID to use.
+     * @param empID
+     * @return good empID
+     */
+    private int assignedID(int empID) {
+        if (setOfAssignedIds.contains(empID) || empID <0){
+            empID = generateID();
+        }
+        setOfAssignedIds.add(empID);
+        return empID;
     }
 
     /**
@@ -185,6 +203,22 @@ public class Employee {
         //     return false;
 
         return getSsNum() == employee.getSsNum();
+    }
+
+
+    /**
+     * Internal helper class method to generate a new ID that does not exist in our set of IDs
+     * @return a new ID as a {@link Integer}
+     */
+    private static Integer generateID(){
+        int i = 1;
+        while (true) {
+            if (!setOfAssignedIds.contains(i)) {
+                return i;
+            }
+            i++;
+        }
+
     }
 
 
