@@ -22,7 +22,50 @@ import java.util.HashSet;
  *
  * @author Brian King
  */
+
 public class Employee {
+
+    /**
+     * A factory to generate unique employee IDs in a safe way
+     */
+    private static class IDFactory {
+
+        /**
+         * Collection of unique employee IDs generated or assigned
+         */
+        private static HashSet<Integer> setOfAssignedIds = new HashSet<>();
+
+
+        /**
+         * Internal helper class method to generate a new ID that does not exist in our set of IDs
+         *
+         * @return a new ID as a {@link Integer}
+         */
+        private static Integer generateID() {
+            int i = 1;
+            while (true) {
+                if (!setOfAssignedIds.contains(i)) {
+                    return i;
+                }
+                i++;
+            }
+        }
+
+        /**
+         * check if the supplied empID is in setOfAssignedIDs.
+         * If it is, OR if the id specified is <= 0, then call generateID() to generate the next available good ID to use.
+         * @param empID - empID to check
+         * @return good empID
+         */
+        private static int safeToUse(int empID) {
+            if (setOfAssignedIds.contains(empID) || empID < 0) {
+                empID = generateID();
+            }
+            setOfAssignedIds.add(empID);
+            return empID;
+
+        }
+    }
 
     /** Employee id */
     private int empID;
@@ -42,9 +85,6 @@ public class Employee {
     /** Current salary of the employee */
     private double salary;
 
-    /** Collection of unique employee IDs generated or assigned */
-    private static HashSet<Integer> setOfAssignedIds = new HashSet<>();
-
     /**
      * Explicit constructor to create new employee
      *
@@ -56,7 +96,7 @@ public class Employee {
      * @param salary    Current employee salary
      */
     public Employee(int empID, String firstName, String lastName, int ssNum, LocalDate hireDate, double salary) {
-        this.empID = assignedID(empID);
+        this.empID = IDFactory.safeToUse(empID);
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssNum = ssNum;
@@ -64,19 +104,6 @@ public class Employee {
         this.salary = salary;
     }
 
-    /**
-     * check if the supplied empID is in setOfAssignedIDs.
-     * If it is, OR if the id specified is <= 0, then call generateID() to generate the next available good ID to use.
-     * @param empID
-     * @return good empID
-     */
-    private int assignedID(int empID) {
-        if (setOfAssignedIds.contains(empID) || empID <0){
-            empID = generateID();
-        }
-        setOfAssignedIds.add(empID);
-        return empID;
-    }
 
     /**
      * @return the employee id
@@ -203,22 +230,6 @@ public class Employee {
         //     return false;
 
         return getSsNum() == employee.getSsNum();
-    }
-
-
-    /**
-     * Internal helper class method to generate a new ID that does not exist in our set of IDs
-     * @return a new ID as a {@link Integer}
-     */
-    private static Integer generateID(){
-        int i = 1;
-        while (true) {
-            if (!setOfAssignedIds.contains(i)) {
-                return i;
-            }
-            i++;
-        }
-
     }
 
 
