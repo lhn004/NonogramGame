@@ -6,7 +6,7 @@
  *
  * Project: csci205
  * Package: lab08
- * File: EmployeeTest
+ * File: HRBDSystemTest
  * Description:
  * A very basic test for HR system
  * ****************************************

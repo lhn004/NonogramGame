@@ -6,7 +6,7 @@
  *
  * Project: csci205
  * Package: lab08
- * File: EmployeeTest
+ * File: ManagerTest
  * Description:
  * A very basic test for a Manager in a simple HR system
  * ****************************************
