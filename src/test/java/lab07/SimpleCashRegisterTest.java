@@ -1,3 +1,18 @@
+/* *****************************************
+ * CSCI205 - Software Engineering and Design
+ * Spring 2023
+ *
+ * Name: Linh Nguyen
+ * Date: 2/14/23
+ * Time: 2:40 PM
+ *
+ * Project: csci205_labs
+ * Package: lab07
+ * Class: SimpleCashRegisterTest
+ * Description:
+ * A test for SimpleCashRegister
+ * ****************************************
+ */
 package lab07;
 
 import lab06.CashRegister;

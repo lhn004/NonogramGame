@@ -2,7 +2,7 @@
  * CSCI205 - Software Engineering and Design
  * Spring 2023
  *
- * Name: YOUR NAME
+ * Name: Linh Nguyen
  * Date: 2/14/23
  * Time: 10:00 AM
  *
