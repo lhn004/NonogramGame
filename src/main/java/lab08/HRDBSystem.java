@@ -2,7 +2,7 @@
  * CSCI205 - Software Engineering and Design
  * Fall 2022
  *
- * Name: YOUR NAME
+ * Name: Linh Nguyen
  * Date: 9/23/22
  * Time: 7:04 PM
  *

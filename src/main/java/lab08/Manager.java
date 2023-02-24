@@ -2,8 +2,7 @@
  * CSCI205 - Software Engineering and Design
  * Spring 2023
  *
- * TODO - Enter your name!
- * Name: YOUR NAME
+ * Name: Linh Nguyen
  *
  * Project: csci205_labs
  * Package: lab08

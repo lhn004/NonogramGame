@@ -46,7 +46,7 @@ class AccountTest {
         this.acct = new Account(INIT_DEPOSIT);
 
         // Set up the test employee to be paid $30/hour
-        this.emp = new Employee(1, "brian", "King", 123459876,
+        this.emp = new Employee(1, "Brian", "King", 123459876,
                 LocalDate.now(), INIT_HOURLY_WAGE * 40*52);
 
     }

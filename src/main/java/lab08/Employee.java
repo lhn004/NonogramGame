@@ -2,8 +2,7 @@
  * CSCI205 - Software Engineering and Design
  * Spring 2023
  *
- * TODO - Enter your name!
- * Name: TODO
+ * Name: Linh Nguyen
  *
  * Project: csci205
  * Package: lab08
@@ -23,7 +22,7 @@ import java.util.HashSet;
  * @author Brian King
  */
 
-public class Employee {
+public class Employee implements Payable{
 
     /**
      * A factory to generate unique employee IDs in a safe way
@@ -85,6 +84,15 @@ public class Employee {
     /** Current salary of the employee */
     private double salary;
 
+    /** Number of weeks in a year */
+    private static final double WEEKS_YEAR = 52;
+
+    /** Number of hours work in a week */
+    private static final double HOURS_WORK = 40;
+
+    /** Overtime pay rate */
+    private static final double OVERTIME_RATE =1.5;
+
     /**
      * Explicit constructor to create new employee
      *
@@ -103,6 +111,46 @@ public class Employee {
         this.hireDate = hireDate;
         this.salary = salary;
     }
+
+
+    /**
+     * @return who the payable person should be
+     */
+    @Override
+    public String getPayTo() {
+        String s = this.firstName + " " + this.lastName;
+        return s;
+    }
+
+    /**
+     * The pay amount that the employee should be paid, based on hours worked
+     * @param hours - number of hours employee worked
+     * @return the amount of money that should be paid
+     */
+    @Override
+    public double calculatePay(double hours) {
+        double payRate = this.salary/ WEEKS_YEAR/ HOURS_WORK;
+        double amountPaid;
+        if (hours > HOURS_WORK) {
+            amountPaid = HOURS_WORK*payRate  + (hours-HOURS_WORK)*OVERTIME_RATE * payRate;
+        }
+        else {
+            amountPaid = hours * payRate;
+        }
+        return amountPaid;
+    }
+
+
+    /**
+     * @return a string that should be placed in the "Memo:" field of the check
+     */
+    @Override
+    public String getPayMemo() {
+        String s = "Employee ID: " + this.empID + ", " + "Pay Date: " + HRUtils.dateToStr(LocalDate.now());
+        return s;
+    }
+
+
 
 
     /**

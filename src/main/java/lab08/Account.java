@@ -109,8 +109,8 @@ public class Account {
             return "";
         }
         String s = "Pay to:       " + lastPayee.getPayTo() + "\n";
-        s += "Pay Memo:      " + lastPayee.getPayMemo() + "\n";
-        s += "Pay Amount:     $" + this.lastAmountPaid;
+        s += "Pay Memo:     " + lastPayee.getPayMemo() + "\n";
+        s += "Pay Amount:   $" + this.lastAmountPaid;
         return s;
     }
 
