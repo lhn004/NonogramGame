@@ -19,11 +19,6 @@ package lab08;
  * Checked exception representing any issues that might arise from the Account
  * class
  */
-class InsufficientFundsException extends Exception {
-    public InsufficientFundsException(String message) {
-        super(message);
-    }
-}
 
 public class Account {
     /** the current balance of the account */
@@ -72,13 +67,13 @@ public class Account {
      * @param payee - the person to be paid
      * @param hoursBilled - hours worked
      */
-    public void processPayment(Payable payee, double hoursBilled) {
+    public void processPayment(Payable payee, double hoursBilled) throws InsufficientFundsException{
         double amountPaid = payee.calculatePay(hoursBilled);
         try {
             this.debit(amountPaid);
         }
         catch (InsufficientFundsException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         this.lastPayee = payee;
         this.lastAmountPaid = amountPaid;
@@ -110,7 +105,7 @@ public class Account {
         }
         String s = "Pay to:       " + lastPayee.getPayTo() + "\n";
         s += "Pay Memo:     " + lastPayee.getPayMemo() + "\n";
-        s += "Pay Amount:   $" + this.lastAmountPaid;
+        s += "Pay Amount:   $" + String.format("%.2f", this.getCheckAmount());
         return s;
     }
 
@@ -119,7 +114,7 @@ public class Account {
      * Print out the current account balance.
      */
     public String toString() {
-        String s = "Current account balance: " + this.balance;
+        String s = String.format("Current account balance: %.2f", this.getBalance());
         return s;
     }
 

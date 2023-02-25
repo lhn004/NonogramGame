@@ -17,15 +17,6 @@ package lab08;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-/**
- * Checked exception representing any issues that might arise from the Manager
- * class
- */
-class ManagerException extends Exception {
-    public ManagerException(String message) {
-        super(message);
-    }
-}
 
 public class Manager extends Employee {
 

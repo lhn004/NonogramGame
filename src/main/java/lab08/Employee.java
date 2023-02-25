@@ -151,8 +151,6 @@ public class Employee implements Payable{
     }
 
 
-
-
     /**
      * @return the employee id
      */

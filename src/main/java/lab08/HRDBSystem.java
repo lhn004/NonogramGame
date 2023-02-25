@@ -17,8 +17,7 @@
 package lab08;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * HRDBSystem - this is a class that represents the main
@@ -26,7 +25,7 @@ import java.util.List;
  */
 public class HRDBSystem {
     /** The list of employees in the company */
-    private ArrayList<Employee> employees;
+    private static ArrayList<Employee> employees;
 
     /**
      * A simple constructor that creates a new system.
@@ -90,12 +89,112 @@ public class HRDBSystem {
         }
     }
 
+
+
+    /**
+     * A simple method to sort the internal list of employees according to the specified {@link Comparator}
+     * @param comparator to specify how employees should be arranged
+     */
+    public static void sortEmployees(Comparator<Employee> comparator){
+        employees.sort(comparator);
+        }
+
+
+    //Member used in test program only
+    private static HRDBSystem hrdb;
+    private static Employee emp;
+    private static Contractor c1;
+    private static Contractor c2;
+    private static Account acc;
     /**
      *  A Simple test method to try out some stuff
      */
     public static void main(String[] args) throws ManagerException {
         HRDBSystem hrdb = new HRDBSystem();
 
+        //Set up all employees, managers, and contractors
+        initEmployee(hrdb);
+        initManager(hrdb);
+        initContractor();
+
+        //Show all people we've created
+        displayEveryone(hrdb);
+
+        //Create an account and test making payments to Payable objects
+        createandTestPayable(hrdb);
+
+        System.out.println("***SORTING EMPLOYEES BY ID");
+        sortEmployees(Comparator.comparing(c -> c.getEmpID()));
+        hrdb.displayEmployees();
+
+        System.out.println("***SORTING EMPLOYEES BY LAST NAME***");
+        sortEmployees(Comparator.comparing(c -> c.getLastName()));
+        hrdb.displayEmployees();
+
+     }
+
+    private static void createandTestPayable(HRDBSystem hrdb) {
+        Account acc = new Account(4000.0);
+        System.out.println(acc);
+
+        //Test out a couple of payments, intentionally throwing an exception with the second payment
+        try {
+            Employee emp = hrdb.getEmployeeAt(0);
+            System.out.println("TEST: Printing a check to employee: " + emp.toSimpleString()
+                                + " with salary - $" + emp.getSalary());
+
+            //40 hours + 10 hours overtime
+            acc.processPayment(emp, 50);
+            System.out.println(acc.writeCheck());
+
+            //Pay first contractor for 35 hours
+            System.out.println("TEST: Printing a check to contractor id: " + c1.getConID() +
+                                " with wage: $" + c1.getHourlyRate());
+            acc.processPayment(c1, 35);
+            System.out.println(acc.writeCheck());
+
+            //Pay second contractor for 50 hours - should trigger exception
+            System.out.println("TEST: Printing a check to contractor id: " + c2.getConID() +
+                    " with wage: $" + c2.getHourlyRate());
+            acc.processPayment(c2, 50);
+            System.out.println(acc.writeCheck());
+        }
+        catch (InsufficientFundsException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            //Show account after writing check
+            System.out.println(acc);
+        }
+    }
+
+    private static void displayEveryone(HRDBSystem hrdb) {
+        System.out.println("*** LIST OF EMPLOYEES ***");
+        hrdb.displayEmployees();
+        System.out.println("*** MANAGER INFO ***");
+        hrdb.displayManagers();
+        System.out.println("*** Contractors ***");
+        System.out.println(c1);
+        System.out.println(c2);
+    }
+
+    private static void initManager(HRDBSystem hrdb) throws ManagerException {
+        Manager mgr = new Manager(11, "Erin", "Jablonski", 867530909,
+                HRUtils.strToDate("2010-02-19"), 200000, "ENGINEERING");
+        hrdb.addNewEmployee(mgr);
+        mgr.addEmployee(hrdb.getEmployeeAt(0));
+        mgr.addEmployee(hrdb.getEmployeeAt(1));
+        mgr.addEmployee(hrdb.getEmployeeAt(3));
+
+        mgr = new Manager(-1, "John", "Bravman", 121230103,
+                                  HRUtils.strToDate("2010-02-19"), 300000, "ADMIN");
+        hrdb.addNewEmployee(mgr);
+        mgr.addEmployee(hrdb.getEmployeeAt(2));
+        mgr.addEmployee(hrdb.getEmployeeAt(5));
+        mgr.addEmployee(hrdb.getEmployeeAt(6));
+    }
+
+    private static void initEmployee(HRDBSystem hrdb) {
         hrdb.addNewEmployee(new Employee(1, "Brian", "King", 123456789,
                                          HRUtils.strToDate("2010-08-20"), 60000));
         hrdb.addNewEmployee(new Employee(2, "Andrew", "Ng", 101010101,
@@ -105,29 +204,15 @@ public class HRDBSystem {
         hrdb.addNewEmployee(new Employee(10, "Grace", "Hopper", 122310291,
                                          HRUtils.strToDate("1971-05-25"), 250000));
 
-        Manager mgr = new Manager(11, "Erin", "Jablonski", 867530909,
-                                  HRUtils.strToDate("2010-02-19"), 200000, "ENGINEERING");
-        hrdb.addNewEmployee(mgr);
-        mgr.addEmployee(hrdb.getEmployeeAt(0));
-        mgr.addEmployee(hrdb.getEmployeeAt(1));
-        mgr.addEmployee(hrdb.getEmployeeAt(3));
-
         hrdb.addNewEmployee(new Employee(10, "Robert", "Randolph", 121212121, LocalDate.now(), 145000));
         hrdb.addNewEmployee(new Employee(10, "Jimi", "Hendrix", 000000001, LocalDate.now(), 250000));
         hrdb.addNewEmployee(new Employee(201, "Nancy", "Wilson", 111111111,
                                          HRUtils.strToDate("1989-02-10"), 125000));
+    }
 
-        mgr = new Manager(-1, "John", "Bravman", 121230103,
-                                  HRUtils.strToDate("2010-02-19"), 300000, "ADMIN");
-        hrdb.addNewEmployee(mgr);
-        mgr.addEmployee(hrdb.getEmployeeAt(2));
-        mgr.addEmployee(hrdb.getEmployeeAt(5));
-        mgr.addEmployee(hrdb.getEmployeeAt(6));
-
-        System.out.println("*** LIST OF EMPLOYEES ***");
-        hrdb.displayEmployees();
-//        System.out.println("*** MANAGER INFO ***");
-//        hrdb.displayManagers();
+    private static void initContractor(){
+        c1 = new Contractor(73, "Builder", "Bob", 342942039, 50.00);
+        c2 = new Contractor(90, "Builder", "Jess", 354829101, 30.00);
     }
 
 }

@@ -123,7 +123,5 @@ class ManagerTest {
         // Check that an exception is not thrown if the employee is in the list
         assertDoesNotThrow(() -> mgr.removeEmployee(emp1));
 
-
-
     }
 }
