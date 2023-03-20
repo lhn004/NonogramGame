@@ -37,11 +37,16 @@ import static javafx.application.Application.launch;
 
 public class HelloMe extends Application {
     private VBox root;
+    /** Top pane containers to hold the controls to get the name from user */
     private HBox topPane;
+
+    /** TextField to enter the name */
     private TextField textFieldInputName;
 
+    /** Button to show name */
     private Button btnHello;
 
+    /** Text name for output */
     private Text textNameOutput;
 
     public static void main(String[] args) {
@@ -54,13 +59,8 @@ public class HelloMe extends Application {
      */
     public void initSceneGraph(){
         this.root = new VBox();
-        this.root.setSpacing(10);
-        this.root.setPadding(new Insets(15));
-        this.root.setAlignment(Pos.CENTER);
 
         this.topPane = new HBox();
-        this.topPane.setSpacing(10);
-        this.topPane.setAlignment(Pos.CENTER);
         root.getChildren().add(this.topPane);
         this.topPane.getChildren().add(new Label("Your name:"));
 
@@ -86,9 +86,18 @@ public class HelloMe extends Application {
     }
 
     /**
-     * Initialize styling effects
+     * Initialize the styling for the content in the scene graph
      */
     private void initStyling() {
+        // Set up styles for root container
+        this.root.setSpacing(10);
+        this.root.setPadding(new Insets(15));
+        this.root.setAlignment(Pos.CENTER);
+
+        // Set up styles for top pane
+        this.topPane.setSpacing(10);
+        this.topPane.setAlignment(Pos.CENTER);
+
         // Add color and make the input name bold
         root.getChildren().add(new Separator());
         this.textNameOutput = new Text();
