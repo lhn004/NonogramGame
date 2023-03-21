@@ -35,6 +35,9 @@ import javafx.stage.Stage;
 
 import static javafx.application.Application.launch;
 
+/**
+ * Hello Me program to print user's name
+ */
 public class HelloMe extends Application {
     private VBox root;
     /** Top pane containers to hold the controls to get the name from user */
@@ -58,18 +61,18 @@ public class HelloMe extends Application {
      * Initialize the scene graph for the app
      */
     public void initSceneGraph(){
-        this.root = new VBox();
+        root = new VBox();
 
-        this.topPane = new HBox();
-        root.getChildren().add(this.topPane);
-        this.topPane.getChildren().add(new Label("Your name:"));
+        topPane = new HBox();
+        root.getChildren().add(topPane);
+        topPane.getChildren().add(new Label("Your name:"));
 
-        this.textFieldInputName = new TextField();
-        this.topPane.getChildren().add(this.textFieldInputName);
+        textFieldInputName = new TextField();
+        topPane.getChildren().add(textFieldInputName);
 
         // Set up the button
-        this.btnHello= new Button("Show my name!");
-        root.getChildren().add(this.btnHello);
+        btnHello= new Button("Show my name!");
+        root.getChildren().add(btnHello);
 
     }
 
@@ -79,9 +82,9 @@ public class HelloMe extends Application {
      */
     private void initEventHandlers() {
         //Set up the event handler
-        this.btnHello.setOnAction(event -> {
-            System.out.println("Hello " + this.textFieldInputName.getText() + "!");
-            this.textNameOutput.setText(this.textFieldInputName.getText());
+        btnHello.setOnAction(event -> {
+            System.out.println("Hello " + textFieldInputName.getText() + "!");
+            textNameOutput.setText(textFieldInputName.getText());
         });
     }
 
@@ -90,25 +93,25 @@ public class HelloMe extends Application {
      */
     private void initStyling() {
         // Set up styles for root container
-        this.root.setSpacing(10);
-        this.root.setPadding(new Insets(15));
-        this.root.setAlignment(Pos.CENTER);
+        root.setSpacing(10);
+        root.setPadding(new Insets(15));
+        root.setAlignment(Pos.CENTER);
 
         // Set up styles for top pane
-        this.topPane.setSpacing(10);
-        this.topPane.setAlignment(Pos.CENTER);
+        topPane.setSpacing(10);
+        topPane.setAlignment(Pos.CENTER);
 
         // Add color and make the input name bold
         root.getChildren().add(new Separator());
-        this.textNameOutput = new Text();
-        root.getChildren().add(this.textNameOutput);
-        this.textNameOutput.setFont(Font.font(null, FontWeight.BOLD,30));
-        this.textNameOutput.setFill(Color.FUCHSIA);
+        textNameOutput = new Text();
+        root.getChildren().add(textNameOutput);
+        textNameOutput.setFont(Font.font(null, FontWeight.BOLD,30));
+        textNameOutput.setFill(Color.FUCHSIA);
 
         // Add reflection
         Reflection reflection = new Reflection();
         reflection.setFraction(0.9);
-        this.textNameOutput.setEffect(reflection);
+        textNameOutput.setEffect(reflection);
 
         // Add dropshadow effect
         DropShadow dropShadow = new DropShadow();
@@ -134,7 +137,7 @@ public class HelloMe extends Application {
         initEventHandlers();
 
         // Add the scene graph to the stage
-        primaryStage.setScene(new Scene(this.root));
+        primaryStage.setScene(new Scene(root));
 
         // Automatically resize the window to show the content on the stage
         primaryStage.sizeToScene();
