@@ -1,4 +1,18 @@
-
+/* *****************************************
+ * CSCI205 -Software Engineering and Design
+ * Spring2023* Instructor: Prof. Brian King
+ ** Name: LINH NGUYEN
+ * Section: 9am
+ * Date: 20/03/2023
+ * Time: 07:58
+ *
+ * Project: csci205_labs
+ * Package: lab10
+ * Class: TempConverter
+ *
+ * Description:
+ *
+ * *****************************************/
 package lab10.ex3;
 
 import javafx.application.Application;
@@ -15,6 +29,9 @@ import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 
+/**
+ * A simple temperature converter
+ */
 public class TempConverter extends Application {
     private VBox root;
 
@@ -42,7 +59,7 @@ public class TempConverter extends Application {
         initEventHandlers();
 
         // Add the scene graph to the stage
-        primaryStage.setScene(new Scene(this.root));
+        primaryStage.setScene(new Scene(root));
 
         // Automatically resize the window to show the content on the stage
         primaryStage.sizeToScene();
@@ -59,20 +76,20 @@ public class TempConverter extends Application {
      * Initialize the scene graph for the app
      */
     public void initSceneGraph(){
-        this.root = new VBox();
+        root = new VBox();
 
-        this.topPane = new FlowPane();
-        root.getChildren().add(this.topPane);
-        this.topPane.getChildren().add(new Label("Temperature (F):"));
+        topPane = new FlowPane();
+        root.getChildren().add(topPane);
+        topPane.getChildren().add(new Label("Temperature (F):"));
 
-        this.textFieldTempInput = new TextField();
-        this.topPane.getChildren().add(this.textFieldTempInput);
+        textFieldTempInput = new TextField();
+        topPane.getChildren().add(textFieldTempInput);
 
-        this.lblResult = new Label();
-        root.getChildren().add(this.lblResult);
+        lblResult = new Label();
+        root.getChildren().add(lblResult);
 
-        this.btnConvert= new Button("Convert!");
-        root.getChildren().add(this.btnConvert);
+        btnConvert= new Button("Convert!");
+        root.getChildren().add(btnConvert);
 
 
     }
@@ -81,11 +98,11 @@ public class TempConverter extends Application {
      * Initialize event handlers
      */
     public void initEventHandlers(){
-        this.btnConvert.setOnAction(event -> {
+        btnConvert.setOnAction(event -> {
             try{
-                Double inputF = Double.parseDouble(this.textFieldTempInput.getText());
+                Double inputF = Double.parseDouble(textFieldTempInput.getText());
                 Double inputC = (double) Math.round((inputF - 32) *(5.0/9));
-                this.lblResult.setText(inputC.toString());
+                lblResult.setText(inputC.toString());
             }
             catch (NumberFormatException e ) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -97,7 +114,7 @@ public class TempConverter extends Application {
         });
 
         // set up text field to event handlers
-        this.textFieldTempInput.setOnAction(this.btnConvert.getOnAction());
+        textFieldTempInput.setOnAction(btnConvert.getOnAction());
 
     }
 
@@ -106,28 +123,28 @@ public class TempConverter extends Application {
      */
     public void initStyling(){
         // Set up root container styles
-        this.root.setSpacing(5);
-        this.root.setPrefWidth(250);   // set the preferred width of the root to 250
-        this.root.setPadding(new Insets(10,5,10,5));
-        this.root.setAlignment(Pos.CENTER);
+        root.setSpacing(5);
+        root.setPrefWidth(250);   // set the preferred width of the root to 250
+        root.setPadding(new Insets(10,5,10,5));
+        root.setAlignment(Pos.CENTER);
 
         // Set up top pane styles
-        this.topPane.setOrientation(Orientation.HORIZONTAL);
-        this.topPane.setAlignment(Pos.CENTER);
-        this.topPane.setHgap(10);
+        topPane.setOrientation(Orientation.HORIZONTAL);
+        topPane.setAlignment(Pos.CENTER);
+        topPane.setHgap(10);
 
         // Align the temp input to be centered and leave space for 5 characters
-        this.textFieldTempInput.setAlignment(Pos.CENTER);
-        this.textFieldTempInput.setPrefColumnCount(5);
+        textFieldTempInput.setAlignment(Pos.CENTER);
+        textFieldTempInput.setPrefColumnCount(5);
 
         // Set up styles for label
-        this.lblResult.setPrefWidth(75);
-        this.lblResult.setPrefHeight(25);
-        this.lblResult.setBorder(new Border(new BorderStroke(null,
+        lblResult.setPrefWidth(75);
+        lblResult.setPrefHeight(25);
+        lblResult.setBorder(new Border(new BorderStroke(null,
                 BorderStrokeStyle.SOLID,
                 new CornerRadii(4),
                 BorderWidths.DEFAULT)));
-        this.lblResult.setAlignment(Pos.CENTER);
+        lblResult.setAlignment(Pos.CENTER);
 
 
 
