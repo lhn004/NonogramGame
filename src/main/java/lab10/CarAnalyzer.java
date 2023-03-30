@@ -171,10 +171,9 @@ public class CarAnalyzer {
         String carBrand = "";
 
         carBrand = this.cars.stream()
-                .sorted(Comparator.comparing(Car::getMpg).reversed())
-                .map(c-> c.getCarName().split(" ")[1])
+                .sorted((c1,c2) -> Double.compare(c2.getMpg(),c1.getMpg()))
                 .findFirst()
-                .orElse(null);
+                .orElse(null).getCarName().split(" ")[1];
 
 
         System.out.println(carBrand);
