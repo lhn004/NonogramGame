@@ -40,3 +40,4 @@ public class HelloFX extends Application {
     }
 
     }
+

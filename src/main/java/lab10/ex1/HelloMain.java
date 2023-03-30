@@ -85,6 +85,5 @@ public class HelloMain extends Application {
             lblTime.setText(ldt.format(formatter));
         });
 
-
     }
 }
