@@ -37,13 +37,6 @@ import java.util.Scanner;
 
 import lab10.Car;
 
-enum Button_Click{
-    BTNCLD,
-    BTNDPLM,
-    BTNHRP,
-    BTNWEIGHT,
-    BTNACC
-}
 public class CarPlot extends Application {
     /** The name of the file used for the exercise */
     private static String CSV_FILE_NAME = "auto-mpg.csv";

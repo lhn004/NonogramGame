@@ -36,17 +36,11 @@ public class CarScatterPlot {
     private NumberAxis xAxis;
     private NumberAxis yAxis;
 
-    /** A reference to XYChart.Series <Number, Number> which will encapsulate the actual data that will be plotted */
-    private XYChart.Series<Number, Number> series;
-    private XYChart.Series<Number, Number> seriesWeight;
-    private XYChart.Series<Number, Number> seriesCld;
-    private XYChart.Series<Number, Number> seriesHrp;
-    private XYChart.Series<Number, Number> seriesDplm;
-    private XYChart.Series<Number, Number> seriesAcc;
-
-
     /** A reference to a ScatterChartinstance, which will encapsulate all the above */
     private ScatterChart<Number, Number> chart;
+
+    /** A series to store data */
+    private XYChart.Series<Number,Number> series;
 
 
 
@@ -76,86 +70,26 @@ public class CarScatterPlot {
     }
 
     /**
-     * Encapsulate the variables to be plotted into the {@link #series} and then
-     * add the series to our {@link #chart}
+     * Encapsulate the variable to be plotted into the {@link #series} and then
+     * add the series to {@link #chart}
      */
-    public void plot(Button_Click btnclick){
-        plotLabel(btnclick);
-        getData(btnclick);
-    }
-
-
-    /**
-     * Add data to be plotted based on the button clicked
-     * @param btnclick - the variable that is clicked to be plotted
-     */
-    private void getData(Button_Click btnclick) {
-        XYChart.Series<Number, Number> seriesPlot = new XYChart.Series<>();
-        // Add the data to the series
-        if (btnclick == Button_Click.BTNACC){
-            cars.stream()
-                    .forEach(car -> {
-                        XYChart.Data<Number,Number> datum = new XYChart.Data<>(car.getAccel(),car.getMpg());
-                        series.getData().add(datum);
-                    });
-        } else if (btnclick == Button_Click.BTNCLD) {
-            cars.stream()
-                    .forEach(car -> {
-                        XYChart.Data<Number,Number> datum = new XYChart.Data<>(car.getCylinders(),car.getMpg());
-                        series.getData().add(datum);
-                    });
-        } else if (btnclick == Button_Click.BTNDPLM) {
-            cars.stream()
-                    .forEach(car -> {
-                        XYChart.Data<Number,Number> datum = new XYChart.Data<>(car.getDisplacement(),car.getMpg());
-                        series.getData().add(datum);
-                    });
-        } else if (btnclick == Button_Click.BTNHRP) {
-            cars.stream()
-                    .forEach(car -> {
-                        XYChart.Data<Number,Number> datum = new XYChart.Data<>(car.getHorsepower(),car.getMpg());
-                        series.getData().add(datum);
-                    });
-        } else {
-            cars.stream()
-                    .forEach(car -> {
-                        XYChart.Data<Number,Number> datum = new XYChart.Data<>(car.getWeight(),car.getMpg());
-                        series.getData().add(datum);
-                    });
-        }
-
-        series.setName("Series 1");
-        chart.getData().add(series);
-    }
-
-
-    /**
-     * Set title and label of the scatterplot
-     * @param btnclick button to choose which variable is plotted
-     */
-    private void plotLabel(Button_Click btnclick) {
-        // Set the title for the chart
-        if (btnclick == Button_Click.BTNCLD) {
-            chart.setTitle("Cylinder vs MPG for automobiles");
-            xAxis.setLabel("Cylinder");
-        } else if (btnclick == Button_Click.BTNACC){
-            chart.setTitle("Acceleration vs MPG for automobiles");
-            xAxis.setLabel("Acceleration");
-        } else if ( btnclick == Button_Click.BTNDPLM) {
-            chart.setTitle("Displacement vs MPG for automobiles");
-            xAxis.setLabel("Displacement");
-        } else if (btnclick == Button_Click.BTNHRP) {
-            chart.setTitle("Horsepower vs MPG for automobiles");
-            xAxis.setLabel("Horsepower");
-        } else {
-            chart.setTitle("Weight vs MPG for automobiles");
-            xAxis.setLabel("Weights");
-        }
+    public void plot(){
+        // Set up the title for the chart
+        chart.setTitle("Weight vs MPG for automobiles");
 
         // Set the labels
+        xAxis.setLabel("Weight");
         yAxis.setLabel("MPG");
-    }
 
+        // Add the data to the series
+        cars.stream().forEach(car -> {
+                XYChart.Data<Number,Number> datum = new XYChart.Data<>(car.getWeight(),car.getMpg());
+                series.getData().add(datum);
+        });
+
+        series.setName("series 1");
+        chart.getData().add(series);
+    }
 }
 
 
