@@ -38,6 +38,5 @@ public class HelloFX extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
     }
 

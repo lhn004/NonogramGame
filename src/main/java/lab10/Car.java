@@ -16,7 +16,6 @@
 package lab10;
 
 import java.util.Scanner;
-
 /**
  * A class that encapsulates the characteristics of a Car
  */

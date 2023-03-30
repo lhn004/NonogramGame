@@ -22,6 +22,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 
+
 /**
  * This is the MVC controller class for our temperature converter app
  */

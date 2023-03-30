@@ -20,6 +20,7 @@ package lab10.tempconvertermvc;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
+
 /**
  * This is the "model" for our temp converter program. There really is not
  * much to a model in this particular program. The only logic that can be separated

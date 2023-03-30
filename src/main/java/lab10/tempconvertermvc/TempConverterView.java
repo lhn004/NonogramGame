@@ -184,6 +184,7 @@ public class TempConverterView {
      * Apply appropriate styles to all of the content in the scene graph
      * for this view
      */
+
     public void initStyling() {
 //        root.setPrefSize(300,150);
 //        root.setPadding(new Insets(15));

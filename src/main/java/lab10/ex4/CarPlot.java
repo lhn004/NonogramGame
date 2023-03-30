@@ -37,6 +37,7 @@ import java.util.Scanner;
 
 import lab10.Car;
 
+
 public class CarPlot extends Application {
     /** The name of the file used for the exercise */
     private static String CSV_FILE_NAME = "auto-mpg.csv";
@@ -46,6 +47,7 @@ public class CarPlot extends Application {
 
     /** Root node of the scene graph */
     private BorderPane root;
+
 
     /** Status bar to show some stuff at the bottom */
     private Label lblStatusBar;

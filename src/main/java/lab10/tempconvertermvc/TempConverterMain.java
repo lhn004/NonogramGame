@@ -48,6 +48,7 @@ public class TempConverterMain extends Application {
         this.theController = new TempConverterController(theModel, theView);
     }
 
+
     /**
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,

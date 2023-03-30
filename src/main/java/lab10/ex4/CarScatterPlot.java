@@ -15,6 +15,8 @@
  * *****************************************/
 package lab10.ex4;
 
+
+
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;

@@ -81,8 +81,7 @@ public class HelloMain extends Application {
         btn.setOnAction(event -> {
             LocalDateTime ldt = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ssa MM/dd/yyyy");
-//            System.out.println(ldt.format(formatter));
-            lblTime.setText(ldt.format(formatter));
+//            System.out.println(ldt.format(formatter));lblTime.setText(ldt.format(formatter));
         });
 
     }
