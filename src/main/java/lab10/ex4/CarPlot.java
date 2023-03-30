@@ -60,15 +60,6 @@ public class CarPlot extends Application {
     /** CarScatterPlot object to plot the scatterplot */
     private CarScatterPlot carScatterPlot;
 
-    /** A list of radio buttons */
-    private RadioButton btnCld;
-    private RadioButton btnDplm;
-    private RadioButton btnHrp;
-    private RadioButton btnWeight;
-    private RadioButton btnAcc;
-    private ToggleGroup buttonGroup;
-
-    private VBox topPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -88,9 +79,6 @@ public class CarPlot extends Application {
         // Add a line that sets the text in your lblStatusBar to show the number of cars read in.
         lblStatusBar.setText("Read in " + cars.size() + " cars");
 
-        // Add the data to the scatterplot and create the plot to be shown
-        setBtnAcc();
-
         // Add the scene graph to the stage
         primaryStage.setScene(new Scene(root, 500,400));
 
@@ -99,6 +87,9 @@ public class CarPlot extends Application {
 
         // Set the title
         primaryStage.setTitle("Car MPG Plotter");
+
+        //Add data to the scatterplot and create the plot to be shown
+        carScatterPlot.plot();
 
         // Display the stage
         primaryStage.show();
@@ -118,26 +109,9 @@ public class CarPlot extends Application {
 
         // Set up our CarScatterPlot
         carScatterPlot = new CarScatterPlot(cars);
-        root.setRight(carScatterPlot.getChart());
-
-        // Set up top pane container
-        topPane = new VBox();
-        root.setLeft(topPane);
+        root.setCenter(carScatterPlot.getChart());
 
 
-        // Set up radio buttons
-        btnCld = new RadioButton("Cylinder");
-        btnDplm = new RadioButton("Displacement");
-        btnHrp = new RadioButton("Horsepower");
-        btnWeight = new RadioButton("Weight");
-        btnAcc = new RadioButton("Acceleration");
-        buttonGroup = new ToggleGroup();
-        btnCld.setToggleGroup(buttonGroup);
-        btnDplm.setToggleGroup(buttonGroup);
-        btnHrp.setToggleGroup(buttonGroup);
-        btnWeight.setToggleGroup(buttonGroup);
-        btnAcc.setToggleGroup(buttonGroup);
-        topPane.getChildren().addAll(btnCld,btnWeight,btnHrp,btnAcc,btnDplm);
 
     }
 
@@ -147,10 +121,6 @@ public class CarPlot extends Application {
     private void initStyling() {
         // Set up styles for root
         root.setPadding(new Insets(15));
-
-        // Set up styles for top pane
-        topPane.setSpacing(10);
-        topPane.setPadding(new Insets(15, 5, 5, 15));
     }
 
 
@@ -189,17 +159,6 @@ public class CarPlot extends Application {
             System.exit(1);
         }
 
-    }
-
-    /**
-     * Plot scatterplot based on the variable is chosen through the button
-     */
-    private void setBtnAcc(){
-        btnCld.setOnAction(event -> carScatterPlot.plot(Button_Click.BTNCLD));
-        btnAcc.setOnAction(event -> carScatterPlot.plot(Button_Click.BTNACC));
-        btnWeight.setOnAction(event -> carScatterPlot.plot(Button_Click.BTNWEIGHT));
-        btnHrp.setOnAction(event -> carScatterPlot.plot(Button_Click.BTNHRP));
-        btnDplm.setOnAction(event -> carScatterPlot.plot(Button_Click.BTNDPLM));
     }
 
 
